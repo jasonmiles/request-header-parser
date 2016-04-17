@@ -16,8 +16,11 @@ module.exports = function (app, passport) {
 	var clickHandler = new ClickHandler();
 
 	app.route('/')
-		.get(isLoggedIn, function (req, res) {
-			res.sendFile(path + '/public/index.html');
+		.get(function (req, res) {
+			res.send({"ipaddress" : req.ip, 
+					  "language" : req.headers["accept-language"].split(",")[0],
+					  "software" : req.headers["user-agent"],	
+			});
 		});
 
 	app.route('/login')
